@@ -2,8 +2,9 @@ import { EventEmitter, Injectable } from '@angular/core';
 import { Recipe } from '../models/recipe.model';
 import { Ingredient } from '../models/ingredient.model';
 import { ShoppingListService } from './shopping-list.service';
-import { Subject, map, tap } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { Subject, exhaustMap, map, take, tap } from 'rxjs';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -31,7 +32,7 @@ export class RecipeService {
   //     ])
   // ];
 
-  constructor(private shoppingListService: ShoppingListService, private http: HttpClient) { 
+  constructor(private shoppingListService: ShoppingListService, private http: HttpClient, private authService: AuthService) { 
 
   }
 
@@ -73,22 +74,23 @@ export class RecipeService {
   }
 
   fetchRecipes(){
+    // I only need to take the latest user and then unsubscribe with "take(1)"
     return this.http.get<Recipe[]>('https://recipes-angular-app-f8cf1-default-rtdb.firebaseio.com/recipes.json')
-    .pipe(
-      map(recipes => {
-        // Adding an ingredients[] empty array if a recipe does not contain any ingredients
-        return recipes.map(recipe => {
-          return {
-            ...recipe, 
-            ingredients: recipe.ingredients ? recipe.ingredients : []
-          };
-        });
-      }),
-      tap(recipes => {
-        console.log(recipes);
-        this.recipes = recipes;
-        this.recipesChanged.next(this.recipes.slice());
-      })
-    )
+      .pipe(
+        map(recipes => {
+          // Adding an ingredients[] empty array if a recipe does not contain any ingredients
+          return recipes.map(recipe => {
+            return {
+              ...recipe, 
+              ingredients: recipe.ingredients ? recipe.ingredients : []
+            };
+          });
+        }),
+        tap(recipes => {
+          console.log(recipes);
+          this.recipes = recipes;
+          this.recipesChanged.next(this.recipes.slice());
+        })
+    );
   }
 }

@@ -6,6 +6,8 @@ import { RecipeDetailComponent } from "./components/recipes/recipe-detail/recipe
 import { RecipeStartComponent } from "./components/recipes/recipe-start/recipe-start.component";
 import { RecipeEditComponent } from "./components/recipes/recipe-edit/recipe-edit.component";
 import { RecipesResolverService } from "./services/recipes-resolver.service";
+import { AuthComponent } from "./components/auth/auth.component";
+import { authGuard } from "./guards/auth.guard";
 
 const appRoutes: Routes = [
     { path: '', redirectTo: '/recipes', pathMatch: 'full' },
@@ -14,8 +16,9 @@ const appRoutes: Routes = [
         { path: 'new', component: RecipeEditComponent },
         { path: ':id', component: RecipeDetailComponent, resolve: [RecipesResolverService] },
         { path: ':id/edit', component: RecipeEditComponent, resolve: [RecipesResolverService] }
-    ]},
-    { path: 'shopping-list', component: ShoppingListComponent },
+    ], canActivate: [authGuard]},
+    { path: 'shopping-list', component: ShoppingListComponent, canActivate: [authGuard] },
+    { path: 'auth', component: AuthComponent }
     // { path: 'not-found', component: PageNotFoundComponent },
     // { path: '**', redirectTo: '/not-found' }
 ];
