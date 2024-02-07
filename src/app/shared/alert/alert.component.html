@@ -1,0 +1,15 @@
+<div class="backdrop" (click)="onClose()"></div>
+<div class="alert alert-danger text-center center">
+    <p>{{ message }}</p>
+    <button class="btn btn-danger" (click)="onClose()">Close</button>
+</div>
+
+<!-- En el curso se usa así, pero no se ve del todo bien: -->
+
+<!-- <div class="backdrop" (click)="onClose()"></div>
+<div class="alert-box">
+    <p>{{ message }}</p>
+    <div class="alert-box-actions">
+        <button class="btn btn-primary" (click)="onClose()">Close</button>
+    </div>
+</div> -->

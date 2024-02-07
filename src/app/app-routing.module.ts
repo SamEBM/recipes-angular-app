@@ -18,9 +18,9 @@ const appRoutes: Routes = [
         { path: ':id/edit', component: RecipeEditComponent, resolve: [RecipesResolverService] }
     ], canActivate: [authGuard]},
     { path: 'shopping-list', component: ShoppingListComponent, canActivate: [authGuard] },
-    { path: 'auth', component: AuthComponent }
+    { path: 'auth', component: AuthComponent },
     // { path: 'not-found', component: PageNotFoundComponent },
-    // { path: '**', redirectTo: '/not-found' }
+    { path: '**', redirectTo: '/recipes' }
 ];
 
 @NgModule({

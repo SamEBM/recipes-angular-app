@@ -4,9 +4,15 @@
         <div *ngIf="isLoading" style="text-align: center;">
             <app-loading-spinner></app-loading-spinner>
         </div>
-        <div *ngIf="error" class="alert alert-danger">
+
+        <!-- Previous Alert message -->
+        <!-- <div *ngIf="error" class="alert alert-danger">
             <p>{{ error }}</p>
-        </div>
+        </div> -->
+
+        <!-- New dynamic component -->
+        <app-alert *ngIf="error" [message]="error" (close)="onHandleError()"></app-alert>
+
         <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
             <div class="form-group">
                 <label for="email">Email</label>
