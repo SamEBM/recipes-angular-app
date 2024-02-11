@@ -3,46 +3,27 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
-import { RecipesComponent } from './components/recipes/recipes.component';
-import { RecipeListComponent } from './components/recipes/recipe-list/recipe-list.component';
-import { RecipeDetailComponent } from './components/recipes/recipe-detail/recipe-detail.component';
-import { ShoppingListComponent } from './components/shopping-list/shopping-list.component';
-import { ShoppingListEditComponent } from './components/shopping-list/shopping-list-edit/shopping-list-edit.component';
-import { RecipeItemComponent } from './components/recipes/recipe-list/recipe-item/recipe-item.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { DropdownDirective } from './shared/dropdown.directive';
 import { AppRoutingModule } from './app-routing.module';
-import { RecipeStartComponent } from './components/recipes/recipe-start/recipe-start.component';
-import { RecipeEditComponent } from './components/recipes/recipe-edit/recipe-edit.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { AuthComponent } from './components/auth/auth.component';
-import { LoadingComponent } from './shared/loading/loading.component';
 import { AuthInterceptor } from './services/auth-interceptor.service';
-import { AlertComponent } from './shared/alert/alert.component';
+import { RecipesModule } from './components/recipes/recipes.module';
+import { ShoppingListModule } from './components/shopping-list/shopping-list.module';
+import { SharedModule } from './shared/shared.module';
+import { AuthModule } from './components/auth/auth.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    RecipesComponent,
-    RecipeListComponent,
-    RecipeDetailComponent,
-    ShoppingListComponent,
-    ShoppingListEditComponent,
-    RecipeItemComponent,
-    DropdownDirective,
-    RecipeStartComponent,
-    RecipeEditComponent,
-    AuthComponent,
-    LoadingComponent,
-    AlertComponent
   ],
   imports: [
     BrowserModule,
-    FormsModule,
-    ReactiveFormsModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    // RecipesModule, Ya no se necesita porque ahora se hace con Lazy-loading
+    ShoppingListModule,
+    SharedModule,
+    AuthModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }

@@ -1,11 +1,11 @@
 button.btn-primary {
-    background-color: #782701 !important;
-    border-color: #782701 !important;
+    background-color: #782701;
+    border-color: #782701;
     border-width: 2px;
 }
 
 button.btn-default {
-    border-color: #782701 !important;
+    border-color: #782701;
     border-width: 2px;
     color: #782701;
 }
